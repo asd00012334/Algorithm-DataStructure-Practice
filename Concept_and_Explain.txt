@@ -1,0 +1,17 @@
+# To understand this, basic acknowledgement about Mathematical Induction is required
+The "mergeSort" I wrote here is an unstable sorting function.
+However if you overload "operator<" by a total ordering relation "<=",
+then stability of the sort can be ensured. (within relation "<=")
+The interface of the function can support iterators with random access.
+
+Theoretical Verification, (Simple Version)
+  For array with length 1 and 0, no operation will be performed.
+  Assume for array within lenth n, the function can operate (sort) properly:
+    For array with length on [n+1,2n],
+      1. We split it into half and perform "mergeSort" which will sort properly according to assumption.
+      2. We merge two array together by extract the smaller head of the two array to a temporary array.
+      3. We copy the value of temporary array back to the original array.
+      4. This ensures that the both sorted array be merged as one and the sorting order is also provided.
+    Therefore, any array with length on [n+1,2n] can be sorted correctly.
+  By Mathematical Induction, we may claim that function mergeSort can sort correctly for any array
+  with any natural-number length.

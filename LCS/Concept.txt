@@ -1,0 +1,4 @@
+This is a Dynamic Programing solution to count the
+length of a Longest Common Sequence,
+with time Complexity O(nm) and memory Complexity O(nm)
+where n and m refers to the length of two sequence inputted.

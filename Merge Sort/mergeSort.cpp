@@ -2,19 +2,19 @@
 
 using namespace std;
 
-template<typename type>
-void mergeSort(type* begin, type* end){
+template<typename iter>
+void mergeSort(iter begin, iter end){
     if(begin+1>=end) return;
-    type* mid = begin+(end-begin)/2;
+    iter mid = begin+(end-begin)/2;
 
     /**Divide**/
     mergeSort(begin,mid);
     mergeSort(mid,end);
 
     /**Merge**/
-    type *form = begin;
-    type *latt = mid;
-    type tempArr[end-begin];
+    iter form = begin;
+    iter latt = mid;
+    typename iterator_traits<iter>::value_type tempArr[end-begin];
     for(int cnt=0;cnt<sizeof(tempArr);cnt++)
         if(form!=mid && latt!=end)
             if(*form<*latt)
@@ -25,7 +25,7 @@ void mergeSort(type* begin, type* end){
             tempArr[cnt] = *(form++);
         else if(latt != end)
             tempArr[cnt] = *(latt++);
-    for(type* cnt=begin; cnt!=end ; ++cnt)
+    for(iter cnt=begin; cnt!=end ; ++cnt)
         *cnt = tempArr[cnt-begin];
 }
 

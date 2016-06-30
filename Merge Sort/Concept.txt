@@ -16,4 +16,4 @@ Theoretical Verification, (Simple Version)
     Therefore, any array with length on [n+1,2n] can be sorted correctly,
     which means any array within length 2n can be sorted correctly.
     By Mathematical Induction, we may claim that function "mergeSort" can sort correctly for any array
-    with any natural-number length.
+    with arbitrary length.

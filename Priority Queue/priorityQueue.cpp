@@ -22,7 +22,7 @@ public:
         storage.pop_back();
         int curIndex = 0;
         while(1){
-            if(2*curIndex+1<storage.size() && 2*curIndex+2<storage.size()){
+            if(2*curIndex+2<storage.size()){
                 if(storage[2*curIndex+1]<storage[curIndex] || storage[2*curIndex+2]<storage[curIndex])
                     if(storage[2*curIndex+1]<storage[2*curIndex+2]){
                         std::swap(storage[curIndex],storage[2*curIndex+1]);

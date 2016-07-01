@@ -12,7 +12,7 @@ public:
         int insIndex;
         insIndex = storage.size();
         storage.push_back(ins);
-        for(;storage[insIndex]<storage[(insIndex-1)]/2&&insIndex;insIndex=(insIndex-1)/2)
+        for(;storage[insIndex]<storage[(insIndex-1)/2]&&insIndex;insIndex=(insIndex-1)/2)
             std::swap(storage[(insIndex-1)/2],storage[insIndex]);
     }
     type const& top(){return storage.at(0);}

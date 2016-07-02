@@ -1,0 +1,12 @@
+This is a sorting function, heap sort.
+It supplies iterators with random access.
+Time complexity of it is O(nlogn)
+Memory complexity of it is O(1) because it is inplace sorting.
+It is an unstable sort.
+Definition of "operator<" is required for proper sorting.
+Furthermore "operator<" must be defined under a strict ordering relation
+in order that the sort will operate correctly.
+The sort was based on a few operation of a binary heap.
+First we max-heapify the inputted array.
+Then we deconstruct the heap by multiple deletion from the top of the heap.
+Finally we will have a sorted array that is increasing.

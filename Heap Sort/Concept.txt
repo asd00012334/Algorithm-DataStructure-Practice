@@ -9,4 +9,4 @@ in order that the sort will operate correctly.
 The sort was based on a few operation of a binary heap.
 First we max-heapify the inputted array.
 Then we deconstruct the heap by multiple deletion from the top of the heap.
-Finally we will have a sorted array that is increasing.
+Finally we will have a sorted array that is non-decreasing.

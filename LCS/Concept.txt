@@ -2,3 +2,6 @@ This is a Dynamic Programing solution to count the
 length of a Longest Common Sequence,
 with time Complexity O(nm) and memory Complexity O(nm)
 where n and m refers to the length of two sequence inputted.
+To operate correctly, two are required.
+    1. "operator<" defined under a strict ordering relation.
+    2. container inputted must contain size() member function.

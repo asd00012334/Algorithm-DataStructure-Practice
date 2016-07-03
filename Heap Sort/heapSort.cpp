@@ -39,7 +39,7 @@ void heapSort(iter begin, iter end){
         shiftDown(begin,end,cur);
 
     /**Deletion and Modification**/
-    for(int cnt=size;cnt;cnt--){
+    while(size){
         swap(begin[0],begin[--size]);
         shiftDown(begin,begin+size,0);
     }

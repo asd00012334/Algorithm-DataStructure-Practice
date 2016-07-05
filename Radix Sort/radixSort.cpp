@@ -8,7 +8,12 @@ void radixSort(iter begin, iter end){
     int size = end-begin;
     if(size<=0) return;
     int bitNum = sizeof(type)*8;
-    for(int bit=0;bit<bitNum-1;bit++){
+    type maxi = abs(*begin);
+    for(int cnt=1;cnt<size;cnt++)
+        if(maxi<abs(begin[cnt]))
+            maxi=abs(begin[cnt]);
+    for(;!(maxi&(1<<(bitNum-1)));bitNum--);
+    for(int bit=0;bit<bitNum;bit++){
         vector<type> radix[2];
         for(int cnt=0;cnt<size;cnt++)
             if(begin[cnt]&(1<<bit))
@@ -36,8 +41,6 @@ void radixSort(iter begin, iter end){
 int main(){
     string input = "This is a Radix Sort.";
     radixSort(input.begin(),input.end());
-    for(int cnt=0;cnt<input.size();cnt++)
-        cout<<input[cnt];
-    cout<<endl;
+    cout<<input<<endl;
     return 0;
 }

@@ -35,9 +35,11 @@ pair<type,type> extGCD(type left, type right){
 
 template<typename type>
 type modulusInverse(type input, type mod){
-    type output = extGCD(input,mod).first;
-    if(output<0) output = output%mod+mod;
-    return output;
+    pair<type,type> p = extGCD(input,mod);
+    if(input*p.first+mod*p.second!=1)
+        throw logic_error("Return value does not exist.\n");
+    if(p.first<0) p.first = p.first%mod+mod;
+    return p.first;
 }
 
 
@@ -51,7 +53,12 @@ int main(){
         printf("GCD(%d,%d) = %d\n",left,right,GCD(left,right));
         printf("LCM(%d,%d) = %d\n",left,right,LCM(left,right));
         printf("extGCD(%d,%d) = (%d,%d)\n",left,right,p.first,p.second);
-        printf("Reverse Modulus of %d under modulus %d: %d + %dn\n",left,right,modulusInverse(left,right),right);
+        printf("Reverse Modulus of %d under modulus %d: ",left,right);
+        if(GCD(left,right)==1)
+            printf("%d + %dn\n",modulusInverse(left,right),right);
+        else
+            printf("Not Exist\n");
+
         printf("\n");
     }
     return 0;

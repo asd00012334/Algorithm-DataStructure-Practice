@@ -18,6 +18,7 @@ type LCM(type left, type right){
 
 template<typename type>
 pair<type,type> extGCD(type left, type right){
+    if(!left && !right) throw logic_error("Return value does not exist.\n");
     pair<type,type> lCor(1,0), rCor(0,1);
     if(left<0) lCor.first = -1;
     if(right<0) rCor.second = -1;

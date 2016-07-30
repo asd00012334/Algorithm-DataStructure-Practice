@@ -3,7 +3,7 @@
 using namespace std;
 
 template<typename type>
-class priorityQueue{
+class PriorityQueue{
 private:
     vector<type> storage;
 public:
@@ -42,12 +42,12 @@ public:
         }
     }
     bool empty(){return storage.empty();}
-    void swap(priorityQueue<type>& right){storage.swap(right.storage);}
+    void swap(PriorityQueue<type>& right){storage.swap(right.storage);}
 };
 
 int main(){
     string input = "This is a Priority Queue.";
-    priorityQueue<char> pQ;
+    PriorityQueue<char> pQ;
     for(int cnt=0;cnt<input.size();cnt++)
         pQ.push(input[cnt]);
 

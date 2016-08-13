@@ -49,8 +49,6 @@ void heapSort(iter begin, iter end){
 int main(){
     string input = "This is a Heap Sort.";
     heapSort(input.begin(),input.end());
-    for(int cnt=0;cnt<input.size();cnt++)
-        cout<<input[cnt];
-    cout<<endl;
+    cout<<input<<endl;
     return 0;
 }

@@ -107,13 +107,6 @@ public:
         cur.val = operate(storage[cur.left].val,storage[cur.right].val);
     }
 
-    void dump(){
-        for(int cnt=0;cnt<storage.size();cnt++)
-            printf("[%d,%d,%d] ",storage[cnt].begin,storage[cnt].end,storage[cnt].idx);
-        printf("\n");
-
-    }
-
 };
 
 template<typename type>

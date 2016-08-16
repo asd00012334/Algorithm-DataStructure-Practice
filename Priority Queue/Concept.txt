@@ -6,4 +6,4 @@ The push() and pop() operation takes O(log n).
 The top() operation takes constant though.
 To compile correctly for any instantialtion of the template class,
 "Operator<" of the value type must be defined and defined within a strict ordering relation
-in order that its basic operations perform properly.
+also in order that its basic operations perform properly.

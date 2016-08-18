@@ -1,0 +1,16 @@
+This is a generic container template, polymorphic version of segment tree.
+Three core methods are build, update as well as query.
+The build method has interface "build(begin, end, operate = max)"
+where begin and end must be random-accesssible and operate is a
+associative binary operation under specified type.
+Time and memory complexity of the build method is O(n).
+Update method is designed to update a segment part's value;
+It has time complexity O(log n).
+Query method is designed to generate the segment operation for a
+specified segment, with time complexity O(log n).
+However, if the length of the segment operated is 1, the unique element
+in that segment will be generated.
+It has time complexity O(log n).
+
+No lazy tag was used.
+Particulary, mark that we use [begin,end) notation to describe a segment.

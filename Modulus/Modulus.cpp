@@ -12,7 +12,7 @@ type GCD(type left, type right){
 
 template<typename type>
 type LCM(type left, type right){
-    if(!left && !right) return 0;
+    if(!left || !right) throw logic_error("Return value does not exist.\n");
     return abs(left*right/GCD(left,right));
 }
 

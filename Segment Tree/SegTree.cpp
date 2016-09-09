@@ -27,8 +27,8 @@ public:
     }
 
     template<typename iter>
-    SegTree(iter begin, iter end, type (*operate)(type,type) = max){
-        Node(begin,end, operate);
+    SegTree(iter begin, iter end, type const& (*operate)(type const&,type const&) = max){
+        build(begin,end, operate);
     }
 
     size_t const& size(){return length;}

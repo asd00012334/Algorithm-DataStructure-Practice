@@ -6,7 +6,7 @@ template<typename iter>
 void quickSort(iter begin, iter end){
     if(end-begin<=1) return;
     iter form = begin+1;
-    iter latt = begin+size-1;
+    iter latt = end-1;
     while(form<=latt)
         if(*form<*begin) ++form;
         else if(*begin<*latt) --latt;

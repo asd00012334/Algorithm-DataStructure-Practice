@@ -8,12 +8,9 @@ void quickSort(iter begin, iter end){
     iter form = begin+1;
     iter latt = begin+size-1;
     while(form<=latt)
-        if(*form<*begin)
-            ++form;
-        else if(*begin<*latt)
-            --latt;
-        else
-            swap(*form,*(latt--));
+        if(*form<*begin) ++form;
+        else if(*begin<*latt) --latt;
+        else swap(*form,*(latt--));
     swap(*begin,*latt);
     quickSort(begin,latt);
     quickSort(form,end);

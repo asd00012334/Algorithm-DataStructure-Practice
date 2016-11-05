@@ -1,0 +1,4 @@
+This is a Multi-Threading version of Merge Sort.
+Its time complexity is O(log n), in ideal situation.
+We use parallel computation to solve for the dividing.
+Thus the complexity T(n) satisfies T(n)=T(n/2)+O(1).

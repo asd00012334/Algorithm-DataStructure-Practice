@@ -7,8 +7,8 @@ void thrdMergeSort(iter begin, iter end){
     int size=end-begin;
     if(size<=1) return;
     iter mid=begin+size/2;
-    thread lThread(thrdMergeSort<iter>,begin,mid),rThread(thrdMergeSort<iter>,mid,end);
-    lThread.join();
+    thread rThread(thrdMergeSort<iter>,mid,end);
+    thrdMergeSort(begin,mid);
     rThread.join();
     iter form = begin;
     iter latt = mid;

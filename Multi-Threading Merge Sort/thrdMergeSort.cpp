@@ -12,7 +12,7 @@ void thrdMergeSort(iter begin, iter end){
     rThread.join();
     iter form = begin;
     iter latt = mid;
-    typename iterator_traits<iter>::value_type tempArr[end-begin];
+    typename iterator_traits<iter>::value_type tempArr[size];
     for(int cnt=0;cnt<sizeof(tempArr);cnt++)
         if(form!=mid && latt!=end)
             if(*form<*latt)

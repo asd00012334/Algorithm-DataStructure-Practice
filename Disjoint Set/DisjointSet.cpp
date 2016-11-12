@@ -8,10 +8,6 @@ class DisjointSet{
     vector<int> head;
     vector<int> card;
     unordered_map<type, int> info;
-    inline int idx(type const& elem){
-        if(!info.count(elem)) return EOF;
-        return info[elem];
-    }
 public:
 
     inline int find(type const& elem){
@@ -47,8 +43,8 @@ public:
     }
 
     inline bool equal(type const& left, type const& right){
-        if(idx(left)==EOF||idx(right)==EOF) return false;
-        return head[idx(left)]==head[idx(right)];
+        if(find(left)==EOF||find(right)==EOF) return false;
+        return head[find(left)]==head[find(right)];
     }
 
     inline size_t size(){return groups;}
@@ -61,8 +57,8 @@ public:
     }
 
     void unionSet(type const& left, type const& right){
-        int leftIdx=idx(left);
-        int rightIdx=idx(right);
+        int leftIdx=find(left);
+        int rightIdx=find(right);
         if(leftIdx==EOF||rightIdx==EOF) return;
         if(leftIdx==rightIdx) return;
         int newCard=card[leftIdx]+card[rightIdx];
@@ -77,7 +73,7 @@ public:
 
     inline size_t cardinality(type const& elem){
         if(!info.count(elem)) return 0;
-        return card[idx(elem)];
+        return card[find(elem)];
     }
 
 };
@@ -94,6 +90,7 @@ int main(){
     if(dst.equal(2,4))
         cout<<"Equal"<<endl;
     cout<<dst.size()<<endl;
-    cout<<dst.cardinality(2);
+    cout<<dst.cardinality(2)<<endl;
+    cout<<dst.find(2)<<endl;
     return 0;
 }

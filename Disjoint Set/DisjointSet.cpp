@@ -13,6 +13,12 @@ class DisjointSet{
         return info[elem];
     }
 public:
+
+    inline int find(type const& elem){
+        if(!info.count(elem)) return EOF;
+        return info[elem];
+    }
+
     template<typename iter>
     DisjointSet(iter begin, iter end){
         makeSet(begin,end);

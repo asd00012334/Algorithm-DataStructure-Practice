@@ -10,11 +10,12 @@ class String{
     size_t len;
     size_t capacity;
 public:
-    String():str(new char[INIT_CAP]),len(0),capacity(INIT_CAP){}
+    String():str(new char[INIT_CAP]),len(0),capacity(INIT_CAP){str[0]='\0';}
     String(String const& init):len(init.len),capacity(init.capacity){
         str = new char[capacity];
         for(int cnt=0;cnt<len;cnt++)
             str[cnt]=init.str[cnt];
+        str[len]='\0';
     }
 
     String(char const* c_str){
@@ -24,6 +25,7 @@ public:
         resize(size);
         for(int cnt=0;cnt<size;cnt++)
             str[cnt]=c_str[cnt];
+        str[size]='\0';
     }
 
     ~String(){
@@ -52,7 +54,7 @@ public:
 
     void push_back(char element){
         if(len+1>=capacity/2){
-            capacity = capacity*2+1;
+            capacity = (len+1)*4+1;
             char* temp = new char[capacity];
             for(int cnt=0;cnt<len;cnt++)
                 temp[cnt]=str[cnt];
@@ -60,30 +62,32 @@ public:
             str=temp;
         }
         str[len++]=element;
+        str[len]='\0';
     }
 
     void pop_back(){
         if(!len) throw exception();
         if(len-1<capacity/4){
-            capacity = capacity/2;
+            capacity = (len-1)*2+1;
             char* temp = new char[capacity];
-            for(int cnt=0;cnt<len;cnt++)
+            for(int cnt=0;cnt<len-1;cnt++)
                 temp[cnt]=str[cnt];
             delete[] str;
             str=temp;
         }
-        --len;
+        str[--len]='\0';
     }
 
-    void resize(size_t newSize){
+    void resize(int newSize){
+        if(newSize<0) throw exception();
         if(newSize>=capacity/2 || newSize<capacity/4){
-            char* temp = new char[newSize*3+1];
+            char* temp = new char[capacity=newSize*3+1];
             for(int cnt=0;cnt<newSize;cnt++)
                 temp[cnt]=str[cnt];
-            delete str;
+            delete[] str;
             str=temp;
         }
-        len = newSize;
+        str[len=newSize]='\0';
     }
 
     char& operator[](int term){
@@ -99,9 +103,8 @@ public:
         capacity = right.capacity;
         delete[] str;
         str = new char[capacity];
-        for(int cnt=0;cnt<len;cnt++)
+        for(int cnt=0;cnt<=len;cnt++)
             str[cnt] = right.str[cnt];
-
     }
 
     friend String operator+(String const& left, String const& right){
@@ -111,6 +114,7 @@ public:
             out.str[cnt]=left.str[cnt];
         for(int cnt=left.len;cnt<out.len;cnt++)
             out.str[cnt]=right.str[cnt];
+        out.str[out.len]='\0';
         return out;
     }
 
@@ -120,6 +124,7 @@ public:
         left.resize(left.len+right.len);
         for(int cnt=origSize;cnt<left.len;cnt++)
             left.str[cnt]=right.str[cnt];
+        left.str[left.len]='\0';
         return left;
     }
 
@@ -129,10 +134,8 @@ public:
         std::swap(str,toSwap.str);
     }
 
-    friend ostream& operator<<(ostream& out, String const& right){
-        for(int cnt=0;cnt<right.len;cnt++)
-            out.put(right.str[cnt]);
-        return out;
+    inline friend ostream& operator<<(ostream& out, String const& right){
+        return out<<right.str;
     }
 
     friend istream& operator>>(istream& in, String& right){
@@ -212,6 +215,7 @@ public:
         return match==pat.len?left:-1;
     }
 
+    const char* c_str(){return str;}
 };
 
 

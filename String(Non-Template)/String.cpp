@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 #define INIT_CAP 3
 
 class String{

@@ -119,6 +119,11 @@ public:
             if(ptr==NULL) throw exception();
             return ptr->val;
         }
+        
+        type* operator->(){
+            if(ptr==NULL) throw exception();
+            return &(ptr->val);
+        }
 
         iterator& operator++(){
             if(ptr==NULL) throw exception();
@@ -173,6 +178,11 @@ public:
         type& operator*(){
             if(ptr==NULL) throw exception();
             return ptr->val;
+        }
+        
+        type* operator->(){
+            if(ptr==NULL) throw exception();
+            return &(ptr->val);
         }
 
         reverse_iterator& operator++(){

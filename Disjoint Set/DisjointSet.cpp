@@ -4,6 +4,7 @@ using namespace std;
 
 template<typename type>
 class DisjointSet{
+    typedef type value_type;
     size_t groups;
     vector<int> head;
     vector<int> card;

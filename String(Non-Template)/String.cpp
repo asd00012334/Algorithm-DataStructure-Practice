@@ -5,6 +5,7 @@ using namespace std;
 #define INIT_CAP 3
 
 class String{
+    typedef char value_type;
     char* str;
     size_t len;
     size_t capacity;

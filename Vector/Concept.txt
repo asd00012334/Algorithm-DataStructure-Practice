@@ -1,0 +1,2 @@
+This is a weakened version of std::vector for use of school assignment.
+Perhaps later I'll try to make it nicer.

@@ -22,15 +22,10 @@ class Trie{
     size_t strNum;
     struct Node{
         Ch ch;
+        bitset<valueRange> nxtValid;
         Node* next[valueRange];
-        Node(){
-            for(int cnt=0;cnt<=valueRange;cnt++)
-                next[cnt]=NULL;
-        }
-        Node(Ch ch):ch(ch){
-            for(int cnt=0;cnt<=valueRange;cnt++)
-                next[cnt]=NULL;
-        }
+        Node(){}
+        Node(Ch ch):ch(ch){}
     }head;
 public:
     Trie():strNum(0),head(){}
@@ -39,12 +34,15 @@ public:
         ++strNum;
         Node* iter=&head;
         while(top<str.size()){
-            if(iter->next[str[top]])
+            if(iter->nxtValid[iter->next[str[top]]])
                 iter=iter->next[str[top]];
-            else
+            else{
+                iter->nxtValid[iter->next[str[top]]]=1;
                 iter=iter->next[str[top]]=new Node(str[top]);
+            }
             top++;
         }
+        iter->nxtValid[iter->next[valueRange]]=1;
         iter->next[valueRange]=new Val(val);
     }
 
@@ -52,19 +50,22 @@ public:
         int top=0;
         Node* iter=&head;
         while(top<str.size()){
-            if(iter->next[str[top]])
+            if(iter->nxtValid[str[top]])
                 iter=iter->next[str[top]];
-            else
+            else{
+                iter->nxtValid[str[top]]=1;
                 iter=(iter->next[str[top]]=new Node(str[top]));
+            }
             top++;
 
         }
-        if(iter->next[valueRange]){
+        if(iter->nxtValid[valueRange]){
             iter=iter->next[valueRange];
             return *(Val*)iter;
         }
         else{
             ++strNum;
+            iter->nxtValid[valueRange]=1;
             iter->next[valueRange]=(Node*) new Val;
             iter=iter->next[valueRange];
             return *(Val*)iter;
@@ -75,7 +76,7 @@ public:
         int top=0;
         Node* iter=&head;
         while(top<str.size()){
-            if(iter->next[str[top]])
+            if(iter->nxtValid[str[top]])
                 iter=iter->next[str[top]];
             else return 0;
             top++;

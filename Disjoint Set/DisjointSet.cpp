@@ -4,79 +4,68 @@ using namespace std;
 
 template<typename type>
 class DisjointSet{
-    typedef type value_type;
     size_t groups;
-    vector<int> head;
+    vector<int> storage;
     vector<int> card;
-    unordered_map<type, int> info;
+    unordered_map<type,int> info;
+    int findSetKernel(int idx){
+        if(storage[idx]==idx) return idx;
+        return storage[idx]=findSetKernel(storage[idx]);
+    }
 public:
-
-    inline int find(type const& elem){
-        if(!info.count(elem)) return EOF;
-        return info[elem];
-    }
-
-    template<typename iter>
-    DisjointSet(iter begin, iter end){
-        makeSet(begin,end);
-    }
-
     DisjointSet():groups(0){}
 
     template<typename iter>
+    DisjointSet(iter begin, iter end){
+        makeSet(begin, end);
+    }
+
+    template<typename iter>
     void makeSet(iter begin, iter end){
-        groups=end-begin;
-        if(groups<0) throw exception();
-        head.resize(groups);
-        card.resize(groups);
+        size_t sizeBound=end-begin;
+        storage.resize(sizeBound);
+        card.resize(sizeBound);
         info.clear();
-        int top=-1;
-        for(int cnt=0;cnt<groups;cnt++){
-            if(info.count(begin[cnt])) continue;
-            top++;
-            head[top]=top;
-            card[top]=1;
-            info[begin[cnt]]=top;
+        groups=0;
+        for(int cnt=0;cnt<sizeBound;cnt++){
+            if(info.count(begin[cnt]))continue;
+            storage[groups]=groups;
+            card[groups]=1;
+            info[begin[cnt]]=groups;
+            groups++;
         }
-        groups=top+1;
-        head.resize(groups);
+        storage.resize(groups);
         card.resize(groups);
     }
 
-    inline bool equal(type const& left, type const& right){
-        if(find(left)==EOF||find(right)==EOF) return false;
-        return head[find(left)]==head[find(right)];
+    int findSet(type elem){
+        if(!info.count(elem)) return -1;
+        int idx=info[elem];
+        return findSetKernel(idx);
     }
+
+    void unionSet(type l, type r){
+        int lHead=findSet(l);
+        int rHead=findSet(r);
+        if(lHead==rHead) return;
+        --groups;
+        storage[rHead]=lHead;
+        card[lHead]+=card[rHead];
+        card[rHead]=0;
+    }
+
+    bool equal(type l, type r){return findSet(l)==findSet(r);}
+
+    size_t cardinality(type elem){return card[findSet(elem)];}
 
     inline size_t size(){return groups;}
 
-    inline void clear(){
+    void clear(){
         groups=0;
-        head.clear();
+        storage.clear();
         card.clear();
         info.clear();
     }
-
-    void unionSet(type const& left, type const& right){
-        int leftIdx=find(left);
-        int rightIdx=find(right);
-        if(leftIdx==EOF||rightIdx==EOF) return;
-        if(leftIdx==rightIdx) return;
-        int newCard=card[leftIdx]+card[rightIdx];
-        for(int cnt=0;cnt<groups;cnt++){
-            if(head[cnt]==head[leftIdx]||head[cnt]==head[rightIdx]){
-                card[cnt]=newCard;
-                head[cnt]=head[leftIdx];
-            }
-        }
-        groups--;
-    }
-
-    inline size_t cardinality(type const& elem){
-        if(!info.count(elem)) return 0;
-        return card[find(elem)];
-    }
-
 };
 
 int main(){
@@ -92,6 +81,6 @@ int main(){
         cout<<"Equal"<<endl;
     cout<<dst.size()<<endl;
     cout<<dst.cardinality(2)<<endl;
-    cout<<dst.find(2)<<endl;
+    cout<<dst.findSet(2)<<endl;
     return 0;
 }

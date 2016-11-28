@@ -25,6 +25,7 @@ void iterMerge(iter begin, iter mid, iter end){
 template<typename iter>
 void iterMergeSort(iter begin, iter end){
     int size=end-begin;
+    if(size<=1) return;
     for(int len=1;len<size;len<<=1)
     for(int cnt=0;cnt+len<size;cnt+=2*len)
         iterMerge(begin+cnt,begin+cnt+len,begin+min(cnt+len*2,size));

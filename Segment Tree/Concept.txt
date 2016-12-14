@@ -9,7 +9,7 @@ It has time complexity O(log n).
 Query method is designed to generate the segment operation for a
 specified segment, with time complexity O(log n).
 However, if the length of the segment operated is 1, the unique element
-in that segment will be generated.
+in that segment will be returned.
 It has time complexity O(log n).
 
 No lazy tag was used.

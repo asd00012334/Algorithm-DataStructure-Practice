@@ -93,6 +93,6 @@ int main(){
     t["asd"]=2;
     t["asdf"]=3;
     t["sldkjkg"]=5;
-    cout<<t["asdf"]<<endl<<t["asd"]<<endl<<t.size()<<endl;;
+    cout<<t["asdf"]<<endl<<t["asd"]<<endl<<t.size()<<endl;
     return 0;
 }

@@ -4,8 +4,9 @@ using namespace std;
 
 template<typename iter>
 void mergeSort(iter begin, iter end){
-    if(begin+1>=end) return;
-    iter mid = begin+(end-begin)/2;
+    int size=end-begin;
+    if(size<=1) return;
+    iter mid = begin+size/2;
 
     /**Divide**/
     mergeSort(begin,mid);
@@ -14,8 +15,8 @@ void mergeSort(iter begin, iter end){
     /**Merge**/
     iter form = begin;
     iter latt = mid;
-    typename iterator_traits<iter>::value_type tempArr[end-begin];
-    for(int cnt=0;cnt<sizeof(tempArr);cnt++)
+    typename iterator_traits<iter>::value_type tempArr[size];
+    for(int cnt=0;cnt<size;cnt++)
         if(form!=mid && latt!=end)
             if(*form<*latt)
                 tempArr[cnt] = *(form++);

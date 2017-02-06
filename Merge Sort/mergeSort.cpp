@@ -24,8 +24,7 @@ void mergeSort(iter begin, iter end){
                 tempArr[cnt] = *(latt++);
         else if(form != mid)
             tempArr[cnt] = *(form++);
-        else if(latt != end)
-            tempArr[cnt] = *(latt++);
+        else tempArr[cnt] = *(latt++);
     for(iter cnt=begin; cnt!=end ; ++cnt)
         *cnt = tempArr[cnt-begin];
 }

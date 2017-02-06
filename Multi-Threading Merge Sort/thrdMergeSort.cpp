@@ -14,7 +14,7 @@ void thrdMergeSort(iter begin, iter end){
         thrdMergeSort(mid,end);
     }
     thrdMergeSort(begin,mid);
-    rThread.join();
+    if(rThread.joinable()) rThread.join();
     iter form = begin;
     iter latt = mid;
     typename iterator_traits<iter>::value_type tempArr[size];
@@ -30,8 +30,6 @@ void thrdMergeSort(iter begin, iter end){
     for(iter cnt=begin; cnt!=end ; ++cnt)
         *cnt = tempArr[cnt-begin];
 }
-
-
 
 int main(){
     string str="This is a Multi-Threading Merge Sort";

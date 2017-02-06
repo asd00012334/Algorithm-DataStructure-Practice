@@ -13,7 +13,7 @@ void thrdMergeSort(iter begin, iter end){
     iter form = begin;
     iter latt = mid;
     typename iterator_traits<iter>::value_type tempArr[size];
-    for(int cnt=0;cnt<sizeof(tempArr);cnt++)
+    for(int cnt=0;cnt<size;cnt++)
         if(form!=mid && latt!=end)
             if(*form<*latt)
                 tempArr[cnt] = *(form++);

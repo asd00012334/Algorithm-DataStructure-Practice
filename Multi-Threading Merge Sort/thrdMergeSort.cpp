@@ -7,7 +7,12 @@ void thrdMergeSort(iter begin, iter end){
     int size=end-begin;
     if(size<=1) return;
     iter mid=begin+size/2;
-    thread rThread(thrdMergeSort<iter>,mid,end);
+    thread rThread;
+    try{
+        rThread=thread(thrdMergeSort<iter>,mid,end);
+    }catch(exception){
+        thrdMergeSort(mid,end);
+    }
     thrdMergeSort(begin,mid);
     rThread.join();
     iter form = begin;
@@ -21,8 +26,7 @@ void thrdMergeSort(iter begin, iter end){
                 tempArr[cnt] = *(latt++);
         else if(form != mid)
             tempArr[cnt] = *(form++);
-        else if(latt != end)
-            tempArr[cnt] = *(latt++);
+        else tempArr[cnt] = *(latt++);
     for(iter cnt=begin; cnt!=end ; ++cnt)
         *cnt = tempArr[cnt-begin];
 }

@@ -1,0 +1,3 @@
+Find smallest N element within an random-accessible sequence.
+O(n) in average, O(n^2) in worst case
+Could be optimize to worst case O(n), with Medium-of-Medium-Algorithm.

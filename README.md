@@ -4,4 +4,4 @@ This is a spontaneous practicing plan to practice and reconstruct
 those algorithm and data structure I've learned before or will learn in the future.
 
 Note.
-Still under construction, some code may be incomlete
+Still under construction, some codes may be incomlete

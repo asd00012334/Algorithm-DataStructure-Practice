@@ -36,7 +36,7 @@ void convKernel(vector<type>& l, vector<type>& r, vector<type>& result){
     convKernel(lr,rr,rightResult);
     convKernel(lmix,rmix,mixResult);
 
-    for(type cnt=0;cnt<size;cnt++){
+    for(int cnt=0;cnt<size;cnt++){
         result[cnt+hSize*2]+=rightResult[cnt];
         result[cnt+hSize]+=mixResult[cnt]-rightResult[cnt]-leftResult[cnt];
         result[cnt]+=leftResult[cnt];

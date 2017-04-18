@@ -1,6 +1,7 @@
 This is a generic container template, polymorphic version of segment tree.
+Operator+ is must be defined in O(1) and also assiciative.
 Three core methods are build, update as well as query.
-The build method has interface "build(begin, end, operate = max)"
+The build method has interface "build(begin, end)"
 where begin and end must be random-accesssible and operate is an
 associative binary operation under specified type.
 Time and memory complexity of the build method is O(n).
@@ -12,5 +13,5 @@ However, if the length of the segment operated is 1, the unique element
 in that segment will be returned.
 It has time complexity O(log n).
 
-No lazy tag was used.
+Lazy tag was used.
 Particulary, mark that we use [begin,end) notation to describe a segment.

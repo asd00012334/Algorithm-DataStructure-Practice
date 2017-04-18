@@ -13,5 +13,5 @@ However, if the length of the segment operated is 1, the unique element
 in that segment will be returned.
 It has time complexity O(log n).
 
-Lazy tag was used.
+Lazy tag method is used.
 Particulary, mark that we use [begin,end) notation to describe a segment.

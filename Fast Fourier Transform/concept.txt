@@ -1,15 +1,3 @@
-This is still under construction. (Experimental)
-Not fully complete.
-
-Fourier Transform usually refers to a transformation
-that maps a temporal domain function to frequency domain.
-Because it is an integral transform, it gives us some properties
-that we can take advantage of.
-
-For instance, convolution in one domain are corresponding to 
-the multiplication of the other domain.
-
-Here we know that there's also a discrete version of fourier transform.
-We called it Discrete Fourier Transform (or DFT). Usually a DFT cost O(n^2).
-however, Fast Fourier Transform (or FFT) algorithms provides us O(n log n)
-efficiency by using divide and counquer.
+Discrete Time Fourier Series (aka. DTFS or DFT)
+Fast Fourier Trasform Algorithm (Spatial Naive)
+O(n log n) space & time for now, can be improved to inplace.

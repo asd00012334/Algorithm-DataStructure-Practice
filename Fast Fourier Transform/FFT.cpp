@@ -32,8 +32,8 @@ void ifft(Cont& x){
     for(int n=0;n<size;n++)
         if(n&1) odd[n>>1] = x[n];
         else even[n>>1] = x[n];
-    fft(even);
-    fft(odd);
+    ifft(even);
+    ifft(odd);
     const double pi = acos(-1);
     for(int k=0;k<size;k++)
         x[k] = (
@@ -54,12 +54,12 @@ int main(){
         y[cnt] = cos(2*pi*x[cnt]*5);
     }
     vector<complex<double> > f(y.begin(),y.end());
-    for(int cnt=0;cnt<10;cnt++)
+    for(int cnt=0;cnt<1000;cnt+=100)
         cout<<y[cnt]<<" ";
     cout<<endl;
     fft(f);
     ifft(f);
-    for(int cnt=0;cnt<10;cnt++)
+    for(int cnt=0;cnt<1000;cnt+=100)
         cout<<y[cnt]<<" ";
     return 0;
 }

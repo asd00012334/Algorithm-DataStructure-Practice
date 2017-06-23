@@ -14,7 +14,7 @@ void fft(Cont& x){
         else even[n>>1] = x[n];
     fft(even);
     fft(odd);
-    const double pi = acos(-1);
+    static const double pi = acos(-1);
     for(int k=0;k<size;k++)
         x[k] = (
             even[k%even.size()]+
@@ -34,7 +34,7 @@ void ifft(Cont& x){
         else even[n>>1] = x[n];
     ifft(even);
     ifft(odd);
-    const double pi = acos(-1);
+    static const double pi = acos(-1);
     for(int k=0;k<size;k++)
         x[k] = (
             even[k%even.size()]+

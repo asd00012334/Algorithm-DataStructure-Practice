@@ -8,18 +8,16 @@ void fft(Cont& x){
     int size = x.size();
     if(size==1 || size==0) return;
     if(size&(size-1)) x.resize(size = 1<<__lg(size<<1),0);
-    Cont even(size>>1), odd(size+1>>1);
+    Cont even(size>>1), odd(size>>1);
     for(int n=0;n<size;n++)
         if(n&1) odd[n>>1] = x[n];
         else even[n>>1] = x[n];
     fft(even);
     fft(odd);
     static const double pi = acos(-1);
-    for(int k=0;k<size;k++)
-        x[k] = (
-            even[k%even.size()]+
-            exp(-type(0,-k*2*pi/size)*odd[k%odd.size()])
-        )/type(2);
+    type w = 1, dw = exp(type(0,-2*pi/size));
+    for(int k=0;k<size;k++, w*=dw)
+        x[k] = even[k%even.size()] + w*odd[k%odd.size()];
 }
 
 template<class Cont>
@@ -29,37 +27,30 @@ void ifft(Cont& x){
     if(size==1 || size==0) return;
     if(size&(size-1)) x.resize(size = 1<<__lg(size<<1),0);
     Cont even(size>>1), odd(size+1>>1);
-    for(int n=0;n<size;n++)
-        if(n&1) odd[n>>1] = x[n];
-        else even[n>>1] = x[n];
+    for(int k=0;k<size;k++)
+        if(k&1) odd[k>>1] = x[k];
+        else even[k>>1] = x[k];
     ifft(even);
     ifft(odd);
     static const double pi = acos(-1);
-    for(int k=0;k<size;k++)
-        x[k] = (
-            even[k%even.size()]+
-            exp(type(0,-k*2*pi/size)*odd[k%odd.size()])
-        );
+    type w = 1, dw = exp(type(0,2*pi/size));
+    for(int k=0;k<size;k++, w*=dw)
+        x[k] = (even[k%even.size()] + w*odd[k%odd.size()])/type(2);
 }
 
 int main(){
     double Ts = 0.001;
-    double T = 100;
+    int N = 1<<18;
+    double T = N*Ts;
     double const pi = acos(-1);
-    int N = T/Ts;
     vector<double> x(N);
     vector<double> y(N);
     for(int cnt=0;cnt<N;cnt++){
         x[cnt] = cnt*Ts;
-        y[cnt] = cos(2*pi*x[cnt]*5);
+        y[cnt] = cos(2*pi*x[cnt]*200);
     }
     vector<complex<double> > f(y.begin(),y.end());
-    for(int cnt=0;cnt<1000;cnt+=100)
-        cout<<y[cnt]<<" ";
-    cout<<endl;
     fft(f);
     ifft(f);
-    for(int cnt=0;cnt<1000;cnt+=100)
-        cout<<y[cnt]<<" ";
     return 0;
 }

@@ -2,12 +2,6 @@
 
 using namespace std;
 
-template<class Cont>
-inline void interChange(Cont& s){
-    for(int cnt=0;cnt<s.size();cnt++)
-        swap(s[cnt].first,s[cnt].second);
-}
-
 pair<int,int> operator-(pair<int,int> const& l, pair<int,int> const& r){
     return pair<int,int>(l.first-r.first,l.second-r.second);
 }

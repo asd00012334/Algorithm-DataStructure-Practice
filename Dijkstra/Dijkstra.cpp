@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#define MAX(x) ((x)1<<(sizeof(x)*8-1)-1)
+#define MAX(x) ((x)(1<<(sizeof(x)*8-1))-1)
 using namespace std;
 
 void Dijkstra(
@@ -44,7 +44,7 @@ int main(){
 	}
 	vector<int> stp, intro;
 	Dijkstra(adjList,stp,intro,0);
-	if(stp[n-1]==INT_MAX){
+	if(stp[n-1]==MAX(int)){
 		printf("-1\n");
 		return 0;
 	}

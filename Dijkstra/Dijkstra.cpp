@@ -9,7 +9,7 @@ void Dijkstra(
 	int s
 ){
 	int n = adjList.size();
-	stp = vector<int>(n,INT_MAX);
+	stp = vector<int>(n,MAX(int));
 	stp[s] = 0;
 	vector<bool> tra(n,false);
 	intro = vector<int>(n,-1);

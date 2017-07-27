@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#define MAX(x) ((x)(1<<(sizeof(x)*8-1))-1)
+#define MAX(x) (((x)1<<(sizeof(x)*8-1))-1)
 using namespace std;
 
 void Dijkstra(

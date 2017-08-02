@@ -46,6 +46,8 @@ int trimCnt(vector<int>::iterator remain, vector<int>::iterator remainEnd, int g
 
 int takeGuess(vector<int>& remain){
     /// O(n^3)
+    if(remain.size()>4000)
+        return remain[rand()%remain.size()];
     int n = min(sampleNum,(int)remain.size());
     vector<int> &arr = remain;
     for(int cnt=0;cnt<arr.size();cnt++)
@@ -85,30 +87,33 @@ int main(){
     }
 
     vector<int> pick(remain.begin(),remain.end());
-    int testTimes = 20;
+    int testTimes = pick.size();
     double avg = 0;
     for(int t=0;t<testTimes;t++){
         vector<int> remainDuplicate=remain;
         #define remain remainDuplicate
-        int ans = pick[rand()%pick.size()];
+        int ans = pick[t];
+        bool getit = false;
         int time=0;
         while(remain.size()>1){
             time++;
             int guess = takeGuess(remain);
-            //printf("Guess: %04d\n",guess);
+            ///printf("Guess: %04d\n",guess);
             int a,b;
             /// Auto Process
             pair<int,int> autoAB = countAB(ans,guess);
             a = autoAB.first; b = autoAB.second;
             //cin>>a>>b;
+            if(a==4) getit=true;
             trim(remain,guess,a,b);
         }
-        printf("Answer: %04d\n",remain.front());
+        if(!getit) time++;
+        ///printf("Answer: %04d\n",remain.front());
         avg+=time;
-        cout<<time<<"\n";
+        cout<<time<<" times, current avg: "<<(avg/(t+1))<<"\n";
         #undef remain
     }
     avg/=testTimes;
-    cout<<avg;
+    cout<<avg<<" times in avg\n";
     return 0;
 }

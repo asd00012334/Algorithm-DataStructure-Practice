@@ -12,7 +12,7 @@ template<int length, int n, int k> struct Table: Table<length, n, k-1>{ static c
 template<int length, int n> struct Table<length,n,0>{ static int const dummy; static int arr[length];};
 template<int length, int n, int k> const int Table<length,n,k>::dummy = Table<length,n,0>::arr[k] = C<n,k>::val+Table<length,n,k-1>::dummy*0;
 template<int length, int n> int Table<length,n,0>::arr[length];
-template<int length, int n> const int Table<length,n,0>::dummy=0;
+template<int length, int n> const int Table<length,n,0>::dummy = Table<length,n,0>::arr[0] = C<n,0>::val;
 template struct Table<5,5,5>;
 
 int main(){

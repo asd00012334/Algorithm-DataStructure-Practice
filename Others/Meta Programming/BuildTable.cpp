@@ -8,7 +8,6 @@ template<int n> struct C<n,0>{ static const int val;};
 template<int n, int k> const int C<n,k>::val = C<n,k-1>::val*(n-k+1)/k;
 template<int n> const int C<n,0>::val=1;
 
-
 /// Table<n,0>::arr[k]
 template<int n, int k> struct Table: Table<n, k-1>{ static const int dummy;};
 template<int n> struct Table<n,0>{ static int const dummy; static int arr[n];};

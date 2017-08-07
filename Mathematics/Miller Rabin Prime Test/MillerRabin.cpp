@@ -2,14 +2,25 @@
 #define ll long long
 using namespace std;
 
-ll liarInt[3] = {2,7,61};
+int liarInt[3] = {2,7,61};
 ll liarLL[7] = {2,325,9375,28178,450775,9780504,1795265022};
+
+
+inline int mul(int const& a, int const& b, int const& mod){return (ll)a*b%mod;}
+inline ll mul(ll a, ll b, ll mod){
+    ll out = 0;
+    for(;b;b>>=1){
+        if(b&1) if((out+=a)>=mod) out-=mod;
+        if((a<<=1)>= mod) a-=mod;
+    }
+    return out;
+}
 
 template<typename Int>
 inline Int power(Int base, Int expo, Int mod){
     Int out = 1;
-    for(;expo;expo>>=1, base=base*base%mod)
-        if(expo&1) out=out*base%mod;
+    for(;expo;expo>>=1, base=mul(base,base,mod) )
+        if(expo&1) out=mul(out,base,mod);
     return out;
 }
 
@@ -24,7 +35,7 @@ bool MillerRabin(Int n){
         liar = power(liar%n,d,n);
         if(liar==1) continue;
         bool existN1 = false;
-        for(int cnt=r;cnt;--cnt,liar=liar*liar%n)
+        for(int cnt=r;cnt;--cnt,liar=mul(liar,liar,n))
             if(liar==n-1){
                 existN1=true;
                 break;
@@ -35,10 +46,10 @@ bool MillerRabin(Int n){
 }
 
 int main(){
-    ll n;
+    int n;
     while(cin>>n){
-        if(MillerRabin(n)) printf("Prime\n");
-        else printf("Composite\n");
+        if(MillerRabin(n)) cout<<"Prime\n";
+        else cout<<"Composite\n";
     }
     return 0;
 }

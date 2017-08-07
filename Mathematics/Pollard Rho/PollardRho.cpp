@@ -5,7 +5,6 @@ using namespace std;
 int liarInt[3] = {2,7,61};
 ll liarLL[7] = {2,325,9375,28178,450775,9780504,1795265022};
 
-
 inline int mul(int const& a, int const& b, int const& mod){return (ll)a*b%mod;}
 inline ll mul(ll a, ll b, ll mod){
     ll out = 0;

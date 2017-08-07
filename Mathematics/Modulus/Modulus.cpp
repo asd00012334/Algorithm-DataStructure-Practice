@@ -13,7 +13,7 @@ inline ll mul(ll a, ll b, ll mod){
     return out;
 }
 
-inline ll _mul(ll a, ll b, ll mod){
+inline ll _mul(ll a, ll b, ll mod){ /// Faster Algo From Sun-Moon-Template
     a%=mod; b%=mod;
     ll c = (ll)((double)a*b/mod+0.5);
     ll out = (a*b-c*mod)%mod;

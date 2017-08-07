@@ -2,6 +2,32 @@
 
 using namespace std;
 
+inline int mul(int const& a, int const& b, int const& mod){return (ll)a*b%mod;}
+inline ll mul(ll a, ll b, ll mod){
+    ll out = 0;
+    for(;b;b>>=1){
+        if(b&1) if((out+=a)>=mod) out-=mod;
+        if((a<<=1)>= mod) a-=mod;
+    }
+    return out;
+}
+
+inline ll _mul(ll a, ll b, ll mod){
+    ll out = 0;
+    a%=mod; b%=mod;
+    ll c = (ll)((double)a*b/mod+0.5);
+    out = (a*b-c*mod)%mod;
+    return out<0?out+mod:out;
+}
+
+template<typename Int>
+inline Int power(Int base, Int expo, Int mod){
+    Int out = 1;
+    for(;expo;expo>>=1, base=mul(base,base,mod) )
+        if(expo&1) out=mul(out,base,mod);
+    return out;
+}
+
 template<typename type>
 type GCD(type left, type right){
     if(!left && !right) throw logic_error("Return value does not exist.\n");
@@ -12,7 +38,6 @@ type GCD(type left, type right){
 
 template<typename type>
 type LCM(type left, type right){
-    if(!left || !right) throw logic_error("Return value does not exist.\n");
     return abs(left*right/GCD(left,right));
 }
 

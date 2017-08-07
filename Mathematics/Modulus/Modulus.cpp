@@ -5,6 +5,7 @@ using namespace std;
 inline int mul(int const& a, int const& b, int const& mod){return (ll)a*b%mod;}
 inline ll mul(ll a, ll b, ll mod){
     ll out = 0;
+    a%=mod; b%=mod;
     for(;b;b>>=1){
         if(b&1) if((out+=a)>=mod) out-=mod;
         if((a<<=1)>= mod) a-=mod;
@@ -13,10 +14,9 @@ inline ll mul(ll a, ll b, ll mod){
 }
 
 inline ll _mul(ll a, ll b, ll mod){
-    ll out = 0;
     a%=mod; b%=mod;
     ll c = (ll)((double)a*b/mod+0.5);
-    out = (a*b-c*mod)%mod;
+    ll out = (a*b-c*mod)%mod;
     return out<0?out+mod:out;
 }
 

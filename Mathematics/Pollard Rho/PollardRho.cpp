@@ -8,12 +8,14 @@ ll liarLL[7] = {2,325,9375,28178,450775,9780504,1795265022};
 inline int mul(int const& a, int const& b, int const& mod){return (ll)a*b%mod;}
 inline ll mul(ll a, ll b, ll mod){
     ll out = 0;
+    a%=mod; b%=mod;
     for(;b;b>>=1){
         if(b&1) if((out+=a)>=mod) out-=mod;
         if((a<<=1)>= mod) a-=mod;
     }
     return out;
 }
+
 
 template<typename Int>
 inline Int power(Int base, Int expo, Int mod){

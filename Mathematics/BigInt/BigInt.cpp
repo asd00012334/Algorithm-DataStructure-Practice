@@ -43,8 +43,8 @@ void ifft(Cont& x){
 class BigInt{
     bool sign;
     BigInt(ll size, short val): decimal(size,val), sign(true){}
-public:
     vector<short> decimal;
+public:
 
     BigInt():decimal(1,0),sign(true){}
     BigInt(string const& str){

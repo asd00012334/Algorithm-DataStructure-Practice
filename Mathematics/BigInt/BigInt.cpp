@@ -97,7 +97,6 @@ public:
         return a;
     }
     friend BigInt mul(BigInt const& a, BigInt const& b){
-        #define eps 1e-6
         ll n = a.decimal.size()+b.decimal.size();
         vector<complex<double> > l(a.decimal.begin(),a.decimal.end()); l.resize(n,0);
         vector<complex<double> > r(b.decimal.begin(),b.decimal.end()); r.resize(n,0);

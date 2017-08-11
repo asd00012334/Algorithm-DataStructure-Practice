@@ -81,6 +81,7 @@ public:
         }
         return out;
     }
+    inline friend SparseMatrix operator/(SparseMatrix const& M, double a){ return (1/a)*M;}
     inline friend SparseMatrix operator*(SparseMatrix const& M, double a){ return a*M;}
     friend SparseMatrix operator*(double a,SparseMatrix const& M){
         int n = M.n, m = M.m;

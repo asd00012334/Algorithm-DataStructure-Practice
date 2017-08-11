@@ -112,7 +112,25 @@ public:
         }
         return L;
     }
-
+    friend SparseMatrix cholesky_solve(
+        SparseMatrix const& A,
+        SparseMatrix const& b
+    ){
+        int n = A.n;
+        SparseMatrix L=cholesky(A);
+        SparseMatrix x = b;
+        for(int i=0;i<n;++i){
+            x(i,0)/=L(i,i);
+            for(int k=i+1;k<n;++k)
+                x(k,0)-=L(k,i)*x(i,0);
+        }
+        for(int i=n-1;i>=0;--i){
+            x(i,0)/=L(i,i);
+            for(int k=i-1;k>=0;--k)
+                x(k,0)-=L(i,k)*x(i,0);
+        }
+        return x;
+    }
 };
 
 int main(){
@@ -121,12 +139,12 @@ int main(){
         {-2,10,-2,-7},
         {4,-2,8,4},
         {2,-7,4,7}
-    };
+    }, bp={{1},{2},{7},{9}};
     SparseMatrix A(prototype);
-    A = cholesky(A);
+    auto x = cholesky_solve(A,bp);
+    SparseMatrix b=A*x;
     for(int i=0;i<4;++i, printf("\n"))
-    for(int j=0;j<4;++j)
-        cout<<A(i,j)<<", ";
+        cout<<b(i,0)<<", ";
     printf("\n");
 
 }

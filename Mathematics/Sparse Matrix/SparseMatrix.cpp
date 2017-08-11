@@ -17,7 +17,6 @@ class SparseMatrix{
     public:
         Entry(int i, int j, SparseMatrix* container, double* elem=NULL):
             i(i), j(j), container(container), elem(elem){}
-
         Entry& operator=(double val){
             if(abs(val)<eps){ setZero(); return *this;}
             if(elem) *elem=val;
@@ -28,9 +27,22 @@ class SparseMatrix{
             if(elem) return *elem;
             return 0;
         }
+        double& operator=(Entry a){ (*this)=double(a);}
+        double& operator+=(double a){ (*container)(i,j) = (*container)(i,j)+a;}
+        double& operator-=(double a){ (*container)(i,j) = (*container)(i,j)-a;}
+        double& operator*=(double a){ (*container)(i,j) = (*container)(i,j)*a;}
+        double& operator/=(double a){ (*container)(i,j) = (*container)(i,j)/a;}
     };
 public:
     SparseMatrix(int n=1, int m=1):n(n),m(m), mat(n){}
+    SparseMatrix(vector<vector<double> > const&init){
+        if(init.empty()) throw exception();
+        n=init.size(), m=init[0].size();
+        mat.resize(n);
+        for(int i=0;i<n;++i)
+        for(int j=0;j<m;++j)
+            (*this)(i,j)=init[i][j];
+    }
     Entry operator()(int i, int j){
         if(i<0 || j<0 || i>=n || j>=m) throw exception();
         if(mat[i].count(j)) return Entry(i,j,this,&mat[i][j]);
@@ -69,17 +81,52 @@ public:
         }
         return out;
     }
+    inline friend SparseMatrix operator*(SparseMatrix const& M, double a){ return a*M;}
+    friend SparseMatrix operator*(double a,SparseMatrix const& M){
+        int n = M.n, m = M.m;
+        SparseMatrix out(n,m);
+        for(int r=0;r<n;++r)
+        for(map<int,double>::const_iterator c=M.mat[r].begin();c!=M.mat[r].end();++c)
+            out(r,c->first) = a*c->second;
+        return out;
+    }
+    friend SparseMatrix cholesky(SparseMatrix A){
+        if(A.n!=A.m) throw exception();
+        int n=A.n;
+        SparseMatrix L(n,n);
+        for(int i=0;i<n;++i){
+            for(int j=0;j<i;++j){
+                L(i,j) = A(i,j);
+                for(map<int,double>::iterator k1=L.mat[i].begin(), k2=L.mat[j].begin();k1!=L.mat[i].end(), k2!=L.mat[j].end();){
+                    if(k1->first>=j||k2->first>=j) break;
+                    if(k1->first < k2->first) ++k1;
+                    else if(k2->first < k1->first) ++k2;
+                    else L(i,j)-=k1->second*k2->second, ++k1, ++k2;
+                }
+                L(i,j)/=L(j,j);
+            }
+            L(i,i) = A(i,i);
+            for(map<int,double>::iterator k=L.mat[i].begin();k->first<i;++k)
+                L(i,i)-=k->second*k->second;
+            L(i,i)=sqrt(L(i,i));
+        }
+        return L;
+    }
+
 };
 
 int main(){
-    SparseMatrix A(3,3);
-    A(0,0);
-    A(1,1) = 2;
-    A(2,1) = 3;
-    auto B = A.transpose();
-    B = B*A+A;
-    for(int i=0;i<3;++i, printf("\n"))
-    for(int j=0;j<3;++j)
-        cout<<B(i,j)<<", ";
+    vector<vector<double> > prototype{
+        {4,-2,4,2},
+        {-2,10,-2,-7},
+        {4,-2,8,4},
+        {2,-7,4,7}
+    };
+    SparseMatrix A(prototype);
+    A = cholesky(A);
+    for(int i=0;i<4;++i, printf("\n"))
+    for(int j=0;j<4;++j)
+        cout<<A(i,j)<<", ";
+    printf("\n");
 
 }

@@ -132,6 +132,25 @@ public:
         }
         return x;
     }
+    friend SparseMatrix conjugate_gradient(
+        SparseMatrix A,
+        SparseMatrix b
+    ){
+        int n = A.n;
+        SparseMatrix x(n,1);
+        SparseMatrix r=b;
+        SparseMatrix v=r;
+        while(n--){
+            SparseMatrix vT = v.transpose();
+            SparseMatrix Av = A*v;
+            double a = (vT*b)(0,0)/(vT*Av)(0,0);
+            x = x+a*v;
+            r = r+(-a)*Av;
+            v = r+(-1)*(vT*A*r)(0,0)/(vT*Av)(0,0)*v;
+        }
+        return x;
+    }
+
 };
 
 int main(){
@@ -142,7 +161,7 @@ int main(){
         {2,-7,4,7}
     }, bp={{1},{2},{7},{9}};
     SparseMatrix A(prototype);
-    auto x = cholesky_solve(A,bp);
+    auto x = conjugate_gradient(A,bp);
     SparseMatrix b=A*x;
     for(int i=0;i<4;++i, printf("\n"))
         cout<<b(i,0)<<", ";

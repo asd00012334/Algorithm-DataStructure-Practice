@@ -140,13 +140,17 @@ public:
         SparseMatrix x(n,1);
         SparseMatrix r=b;
         SparseMatrix v=r;
+        double betaE;
+        double betaD = (r.transpose()*r)(0,0);
         while(n--){
             SparseMatrix vT = v.transpose();
             SparseMatrix Av = A*v;
-            double a = (vT*b)(0,0)/(vT*Av)(0,0);
+            double a = betaD/(vT*Av)(0,0);
             x = x+a*v;
             r = r+(-a)*Av;
-            v = r+(-1)*(vT*A*r)(0,0)/(vT*Av)(0,0)*v;
+            betaE = (r.transpose()*r)(0,0);
+            v = r+(betaE/betaD)*v;
+            betaD = betaE;
         }
         return x;
     }

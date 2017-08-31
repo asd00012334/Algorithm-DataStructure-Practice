@@ -59,8 +59,8 @@ struct setPtr{
 };
 
 template<typename type>
-struct setPtr<0,type>{
-    static inline void set(typename addStar<0,type>::ptr ptr, int const width[],int mem[]){}
+struct setPtr<1,type>{
+    static inline void set(typename addStar<1,type>::ptr ptr, int const width[],int mem[]){}
 };
 
 /// Dynamically Generate const-dimensional array
@@ -85,3 +85,4 @@ int main(){
         cout<<(a[i][j])<<" ";
     delete a;
 }
+

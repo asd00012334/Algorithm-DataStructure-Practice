@@ -3,7 +3,7 @@
 using namespace std;
 
 /// Recursively Generate Pointer Type
-/// i.e. addStar<3,type>::ptr = ptr***
+/// i.e. addStar<3,type>::ptr = type***
 template<int dim, typename type>
 struct addStar{
     typedef typename addStar<dim-1,type>::ptr* ptr;

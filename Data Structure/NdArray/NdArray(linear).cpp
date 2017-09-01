@@ -49,19 +49,19 @@ struct memSize<0,type>{
 /// Set up pointers in memory pool
 template<int dim,typename type>
 struct setPtr{
-    static inline void set(void** ptr,int const width[], int mem[]){
+    static inline void set(char* ptr,int const width[], int mem[]){
         for(int i=0;i<*mem;++i){
-            ptr[i] = ptr+*mem+*width*i;
+            ((char**)ptr)[i] = ptr+(*mem+*width*i)*sizeof(char*);
         }
-        setPtr<dim-1,type>::set((void**)ptr+*mem,width+1,mem+1);
+        setPtr<dim-1,type>::set(ptr+*mem*sizeof(char*),width+1,mem+1);
     };
 };
 
 template<typename type>
 struct setPtr<1,type>{
-    static inline void set(void** ptr, int const width[],int mem[]){
+    static inline void set(char* ptr, int const width[],int mem[]){
         for(int i=0;i<*mem;++i){
-            ptr[i] = (type*)ptr+*mem+*width*i;
+            ((char**)ptr)[i] = ptr+(*mem+*width*i)*sizeof(type);
         }
     }
 };
@@ -71,9 +71,9 @@ template<int dim, typename type>
 auto buildNd(int const width[]){
     int mem[dim+1];
     memSize<dim,type>::set(width,mem);
-    auto retPtr = (void**) new char[sum<dim,int>::get(mem)*sizeof(void*)+mem[dim]*sizeof(type)];
-    setPtr<dim,type>::set(retPtr,width,mem);
-    return (typename addStar<dim, type>::ptr)*retPtr;
+    char* retPtr = new char[sum<dim-1,int>::get(mem+1)*sizeof(char*)+mem[dim]*sizeof(type)];
+    setPtr<dim-1,type>::set(retPtr,width+1,mem+1);
+    return (typename addStar<dim, type>::ptr)retPtr;
 }
 
 int main(){

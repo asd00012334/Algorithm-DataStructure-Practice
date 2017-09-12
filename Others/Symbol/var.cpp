@@ -7,8 +7,6 @@ class var{
     type cache;
     enum VarType{val,add,sub,mul,div} varType;
     vector<var*> child;
-    static set<void*> memPool;
-    int refered;
 
     type load(set<var*>& valid){
         if(valid.count(this)) return cache;
@@ -28,39 +26,12 @@ class var{
         varType=opType;
     }
 
-    void init(){
-        if(memPool.count(this)) refered=1;
-        else refered = -1;
-    }
 
 public:
-    var(): cache(0),varType(val),child{}{init();}
-    var(type const& in): cache(in),varType(val),child{}{init();}
-    var(var const& in): cache(in.cache),varType(in.varType),child(in.child){init();}
+    var(): cache(0),varType(val),child{}{}
+    var(type const& in): cache(in),varType(val),child{}{}
+    var(var const& in): cache(in.cache),varType(in.varType),child(in.child){}
 
-    var& operator=(var& rvalue){
-        if(this==&rvalue) return *this;
-        cache = rvalue.cache;
-        varType = rvalue.varType;
-        child = rvalue.child;
-        refered = rvalue.refered;
-        if(rvalue==1) delete &rvalue;
-        else --rvalue;
-        return *this;
-    }
-
-    void* operator new(size_t size){
-        void* ptr = malloc(size);
-        if(!ptr) throw bad_alloc();
-        memPool.insert(ptr);
-        return ptr;
-    }
-
-    void operator delete(void *ptr){
-        if(!memPool.count(ptr)) throw exception();
-        memPool.erase(ptr);
-        free(ptr);
-    }
 
     inline type operator()(){
         set<var*> valid;
@@ -100,9 +71,6 @@ public:
 
 
 };
-
-template<typename type>
-set<void*> var<type>::memPool;
 
 int main(){
     var<double> a(2),b(2);

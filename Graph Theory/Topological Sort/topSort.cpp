@@ -12,20 +12,18 @@ void topSort(
     for(int s=0;s<n;s++){
         if(tra[s]) continue;
         vector<int> stk(1,s);
-        tra[s] = true;
         while(stk.size()){
             int cur = stk.back();
-            bool endPt = true;
+            if(tra[cur]){
+                result.push_back(cur);
+                stk.pop_back();
+                continue;
+            }
+            tra[cur] = true;
             for(int cnt=0;cnt<adjList[cur].size();cnt++){
                 int nxt = adjList[cur][cnt];
                 if(tra[nxt]) continue;
-                endPt = false;
                 stk.push_back(nxt);
-                tra[nxt] = true;
-            }
-            if(endPt){
-                stk.pop_back();
-                result.push_back(cur);
             }
         }
     }

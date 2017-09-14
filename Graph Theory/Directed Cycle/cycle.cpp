@@ -10,22 +10,21 @@ bool cycle(vector<vector<int> > const& adjList){
     for(int s=0;s<n;++s){
         if(vis[s]) continue;
         stk.push_back(s);
-        vis[s] = true;
         while(stk.size()){
             int cur = stk.back();
-            bool tail = true;
+            if(vis[cur]){
+                drop[cur] = true;
+                stk.pop_back();
+                continue;
+            }
+            vis[cur] = true;
             for(int i=0;i<adjList[cur].size();++i){
                 int nxt = adjList[cur][i];
                 if(drop[nxt]) continue;
                 if(vis[nxt]) return true;
-                tail = false;
                 stk.push_back(nxt);
-                vis[nxt] = true;
             }
-            if(tail){
-                stk.pop_back();
-                drop[cur] = true;
-            }
+
         }
     }
     return false;

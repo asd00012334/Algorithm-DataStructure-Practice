@@ -73,8 +73,6 @@ public:
 	}
 };
 
-
-
 int main(){
 	ThreadPool tp(8);
 	sem_t sync;

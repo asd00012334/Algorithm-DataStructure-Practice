@@ -1,3 +1,7 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
 template<typename iter>
 void split(iter begin, iter end){
     /// Assume end-begin is 2 power
@@ -47,4 +51,22 @@ void ifft(iter begin, iter end){
         begin[k] = (even+odd)/type(2);
         mid[k] = (even-odd)/type(2);
     }
+}
+
+int main(){
+    double Ts = 0.001;
+    int N = 1<<20;
+    double T = N*Ts;
+    double const pi = acos(-1);
+    vector<double> x(N);
+    vector<double> y(N);
+    for(int cnt=0;cnt<N;cnt++){
+        x[cnt] = cnt*Ts;
+        y[cnt] = cos(2*pi*x[cnt]*200);
+    }
+    vector<complex<double> > f(y.begin(),y.end());
+    fft(f.begin(),f.end());
+    ifft(f.begin(),f.end());
+
+    return 0;
 }

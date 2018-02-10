@@ -2,6 +2,8 @@
 
 using namespace std;
 
+/// O(n log^2 n)
+
 template<typename iter>
 void split(iter begin, iter end){
     /// Assume end-begin is 2 power

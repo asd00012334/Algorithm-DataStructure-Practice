@@ -1,4 +1,6 @@
 Discrete Time Fourier Series (aka. DTFS or DFT)
-Fast Fourier Trasform Algorithm (Spatial Naive)
-O(n log n) space & time for now, can be improved to inplace.
-This version is for radix 2 Cooley-Tukey Algorithm.
+Fast Fourier Trasform Algorithm
+Topdown inplace version took O(n log^2 n) for splitting.
+Bottom up version uses O(n) memory for amortized linear bit-reversal
+Generally bottom up version are about 10 times faster then top down version
+These version are for radix 2 Cooley-Tukey Algorithm.

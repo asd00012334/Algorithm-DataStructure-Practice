@@ -33,7 +33,7 @@ void bitShuffle(iter begin, int size){
 template<typename iter>
 void fft(iter begin, iter end){
     /// Assume end-begin is 2 power
-    typedef typename iter::value_type type;
+    typedef typename iterator_traits<iter>::value_type type;
     int size = end-begin;
     bitShuffle(begin,size);
     for(int hsize=1;hsize<size;hsize<<=1){
@@ -53,7 +53,7 @@ void fft(iter begin, iter end){
 template<typename iter>
 void ifft(iter begin, iter end){
     /// Assume end-begin is 2 power
-    typedef typename iter::value_type type;
+    typedef typename iterator_traits<iter>::value_type type;
     int size = end-begin;
     bitShuffle(begin,size);
     for(int hsize=1;hsize<size;hsize<<=1){

@@ -8,7 +8,7 @@ int main(){
         if(!n && !m) break;
         vector<vector<int> > adjList(n);
         for(int i=0;i<m;++i){
-            int u,v; scanf("%d%d",&u,&v);
+            int u,v;scanf("%d%d",&u,&v);
             --u, --v;
             adjList[u].push_back(v);
         }
@@ -36,10 +36,10 @@ int main(){
             if(in[u]==low[u]){
                 /// u is the root of scc
                 ++sccN;
-                while(stk.size()){
-                    int v = stk.back();
+                int v=-1;
+                while(u!=v){
+                    v = stk.back();
                     stk.pop_back();
-                    if(in[u]!=low[v]) break;
                     root[v] = u;
                     onChain[v] = 0;
                 }
@@ -52,6 +52,7 @@ int main(){
             vis[i] = 1;
             sccN += dfs(i);
         }
+
         if(sccN==1) puts("Yes");
         else puts("No");
     }
